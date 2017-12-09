@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇</title>
+    <style>
+        .box{
+            width: 600px;
+            height:600px;
+            /*border:1px solid #333333;*/
+            margin: 0 auto;
+            background: greenyellow;
+        }
+        .box div{
+            width:30px;
+            height:30px;
+            border:1px solid #fff;
+            box-sizing: border-box;
+            float: left;
+            overflow: hidden;
+        }
+        .she{
+            background: blue;
+            border:1px solid #333333;
+            border-radius: 10px;
+        }
+        .food{
+            background: black;
+            border-radius: 50px;
+            box-shadow: 2px 0 1px 3px #fff ;
+        }
+        #scoll{
+            position: absolute;
+            top:0;left: 200px;
+            width: 100px;height: 80px;
+            background: #FE9708;
+            border-radius: 5px;
+            color: #fff;
+            font-family: '迷你简小标宋';
+            text-align: center;
+            line-height: 35px;
+            font-size: 25px;
+        }
+        #scoll span{
+            color: #0086b3;
+        }
+        .firstshe {
+            border-top-right-radius: 20em;
+        }
+        #bnt{
+            width: 100px;height: 80px;
+            position: absolute;
+            color: #fff;
+            right:200px;
+            top:20px;
+            background: #D97209;
+            border-radius: 3px;
+            border:1px solid #590300;
+            font-size: 20px;
+            line-height: 0px;z-index: 20;
+            text-align: center;
+            display: block;
+        }
+        #bnts{
+            width: 100px;height: 80px;
+            position: absolute;color: #fff;
+            right:200px;top:20px;
+            background: #D97209;
+            border-radius: 3px;
+            border:1px solid #590300;
+            font-size: 20px;
+            line-height: 0px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<p id="scoll">分数<br>
+    <span>0</span>
+</p>
+<button id="bnt">暂停</button>
+<button id="bnts">开始</button>
+</body>
+</html>
+<script>
+    let span=document.querySelector("span");
+    let num=0;
+    let bnts=document.querySelector("#bnts");
+    let bnt=document.querySelector("#bnt");
+    function tanchi() {
+      this.box=box;
+      this.she=[
+          {x:0,y:0},
+          {x:0,y:1},
+          {x:0,y:2}
+      ];
+        this.food = {};
+        this.t = 1;
+        this.way = "right";
+
+    }
+        tanchi.prototype={
+        play(){
+            this.chan();
+            this.shee();
+            this.shiwu();
+            this.move();
+            this.wasy();
+        },
+        chan(){
+        let str="";
+        for(let i=0;i<20;i++){
+            for(let j=0;j<20;j++){
+            str+=`<div id="c${i}-${j}"></div>`
+            }
+        }
+       box.innerHTML=str;
+        },
+        shee(){
+            this.she.forEach(val=>{
+                var dom=document.querySelector(`#c${val.x}-${val.y}`);
+               dom.classList.add("she")
+            })
+        },
+        shiwu(){
+                do{
+                    var x=Math.floor(Math.random()*20);
+                    var  y=Math.floor(Math.random()*20);
+                }while(this.check(x,y));
+            let fooddom=document.querySelector(`#c${x}-${y}`);
+            fooddom.classList.add("food");
+            this.food={x,y}
+        },
+           check(a,b){
+                return this.she.some(val=>val.x==a&&val.y==b);
+           },
+        move(){
+            var flag=true;
+            this.t = setInterval(() => {
+                let oh = this.she[this.she.length - 1];
+                let nh;
+                switch (this.way) {
+                    case "right":
+                        nh = {x: oh.x, y: oh.y + 1};
+                        break;
+                    case "left":
+                        nh = {x: oh.x, y: oh.y - 1};
+                        break;
+                    case "top":
+                        nh = {x: oh.x - 1, y: oh.y};
+                        break;
+                    case "bottom":
+                        nh = {x: oh.x + 1, y: oh.y};
+                        break;
+                }
+                let nhdom = document.querySelector(`#c${nh.x}-${nh.y}`);
+                if (!nhdom || this.check(nh.x, nh.y)) {
+                    clearInterval(this.t);
+                    alert("你的分数为："+num+"分，继续努力吧!失败原因：碰壁了.....")
+                    return;
+                }
+                nhdom.className = "she";
+                this.she.push(nh);
+
+                if (nh.x == this.food.x && nh.y == this.food.y) {
+                    this.shiwu();
+                    num++;
+                    span.innerHTML=num;
+
+                }
+
+                else {
+                    let end = this.she.shift();
+                    let enddom = document.querySelector(`#c${end.x}-${end.y}`);
+                    enddom.classList.remove('she');
+                }
+            }, 300);
+
+            bnt.onclick=()=> {
+                flag=false;
+                clearInterval(this.t)
+                bnt.style.display='none';
+                bnts.style.display='block'
+            };
+            bnts.onclick=()=>{
+                flag=true;
+                this.t = setInterval(() => {
+                    let oh = this.she[this.she.length - 1];
+                    let nh;
+                    switch (this.way) {
+                        case 'right':
+                            nh = {x: oh.x, y: oh.y + 1};
+                            break;
+                        case 'left':
+                            nh = {x: oh.x, y: oh.y - 1};
+                            break;
+                        case 'top':
+                            nh = {x: oh.x - 1, y: oh.y};
+                            break;
+                        case 'bottom':
+                            nh = {x: oh.x + 1, y: oh.y};
+                            break;
+                    }
+                    let nhdom = document.querySelector(`#c${nh.x}-${nh.y}`);
+                    if (!nhdom || this.check(nh.x, nh.y)) {
+                        clearInterval(this.t);
+                        alert("你的分数为："+num+"分，继续努力吧!失败原因：碰壁了.....")
+                        return;
+                    }
+                    nhdom.className = 'she';
+                    this.she.push(nh);
+
+                    if (nh.x == this.food.x && nh.y == this.food.y) {
+                        this.shiwu();
+                        num++;
+                        span.innerHTML=num;
+                    }
+                    else {
+                        let end = this.she.shift();
+                        let enddom = document.querySelector(`#c${end.x}-${end.y}`);
+                        enddom.classList.remove('she');
+                    }
+                }, 300);
+                bnt.style.display='block';
+                bnts.style.display='none'
+            }
+        },
+        wasy(){
+            document.onkeydown = (e) => {
+                switch (e.which) {
+                    case 37:
+                        if (this.way == 'right') {
+                            return;
+                        }
+                        this.way = 'left';
+                        break;
+                    case 38:
+                        if (this.way == 'bottom') {
+                            return;
+                        }
+                        this.way = 'top';
+                        break;
+                    case 39:
+                        if (this.way == 'left') {
+                            return;
+                        }
+                        this.way = 'right';
+                        break;
+                    case 40:
+                        if (this.way == 'top') {
+                            return;
+                        }
+                        this.way = 'bottom';
+                        break;
+                }
+            }
+        }
+        }
+    var box=document.querySelector(".box")
+    var tan=new tanchi()
+    tan.play()
+</script>

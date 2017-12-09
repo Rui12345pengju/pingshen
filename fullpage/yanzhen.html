@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>验证</title>
+    <script src="jquery-3.2.1.js"></script>
+    <script src="jquery.validate.js"></script>
+    <script src="messages_zh.js"></script>
+</head>
+<body>
+<form action="">
+    账号：<input type="text" name="user">
+    <div class="box"></div>
+    密码：<input type="text" name="pass" id="pass">
+    确认密码：<input type="text" name="passto">
+    <div class="box"></div>
+    <input type="submit">
+</form>
+</body>
+</html>
+<script>
+    $("form").validate({
+        rules:{
+            user:{
+                required: true,
+                rangelength:[2,10],
+                remote:{
+                    url:"index.php",
+                    data:{
+                        user:function(){
+                            return $("input[name=user]").val()
+                        }
+                    }
+                }
+            },
+            pass:{
+               aa: true,
+                rangelength: [2,10]
+            },
+//            passto:{
+//                equalTo:"#pass"
+//            }
+        },
+        messages:{
+            user:{
+                required: "请输入账号",
+                rangelength: "请输入{0}到{1}的字符串",
+                remote:"账号已存在"
+        },
+             pass:{
+                required:"请输入密码",
+                 rangelength:"请输入{0}到{1}的字符串"
+            }
+        },
+        ///////////改变提示语句标签
+        errorElement:"div",
+        ///////////控制错误信息的位置
+        errorPlacement:function (er,input) {
+            $("input").css("border","1px solid red")
+            er.appendTo(input.next())
+        },
+        ////////////成功的信息
+        success:function (er,input) {
+        er.html("好的")
+        },
+        debug:true,
+        submitHandler:function () {
+          $.ajax();
+        },
+        highlight:function (er,b) {
+         $("er").css("border","1px solid red")
+        },
+        unhighlight:function (er,b) {
+            $("er").css("border","1px solid green")
+        }
+    });
+    $.validator.addMethod("aa",function (val,input,params) {
+        if(val.length>=params[0]&&val.length<=params[1]){
+            return true
+        }else{
+            return false
+        }
+    },"请输入{0}到{1}之间的长度")
+
+</script>

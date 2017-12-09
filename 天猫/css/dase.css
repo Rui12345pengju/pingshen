@@ -1,0 +1,22 @@
+/*
+* @Author: lenovo
+* @Date:   2017-10-04 11:23:42
+* @Last Modified by:   lenovo
+* @Last Modified time: 2017-10-19 23:11:09
+*/
+*{
+	margin: 0px auto;
+	padding: 0px;
+	list-style: none;
+	font-family: "微软雅黑"，san-serif；
+}
+a{
+	text-decoration: none;
+}
+boby{
+	background: #ffffff;
+}
+img{
+	border: 0;
+
+}

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>网易邮箱</title>
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="jquery.fullPage.css">
+    <script src="jquery-1.8.3.min.js"></script>
+    <script src="jquery.fullPage.min.js"></script>
+    <style>
+        #menu { margin: 0; padding: 0; position: fixed; left: 10px; top: 10px; list-style-type: none; z-index: 70;}
+        #menu li { float: left; margin:  0 10px 0 0; font-size: 14px;}
+        #menu a { float: left; padding: 10px 20px; background-color: #fff; color: #333; text-decoration: none;}
+        #menu .active a { color: #fff; background-color: #333;}
+
+        .section {
+            text-align: center;
+            font: 50px "Microsoft Yahei";
+            color: #fff;
+        }
+        .section:nth-child(1){
+            background: url("img/section1.jpg");
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+         .bg1{
+            position: absolute;
+           top:180px;
+            width: 100%;
+            height: 900px;
+            background: url("img/ly-ys-four.jpg") 10% 0 no-repeat;
+        }
+       .bg2{
+            position: absolute;
+           top:180px;
+            width: 100%;
+            height: 377px;
+            background: url(img/ly-jd-two.jpg)95% 0 no-repeat;
+        }
+        .h{
+            position: absolute;
+            top:0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: 100px auto;
+            z-index: 100;
+        }
+         h1{
+            font-size: 120px;
+            text-align: center;
+            font-weight: normal;
+            margin: 0;
+           font-family:"幼圆";
+        }
+        .active  .h{
+            animation:fadeInLeft 2s;
+        }
+        .h{
+            color: wheat;
+            animation:fadeOutLeft 1s;
+        }
+        .active .p1{
+            animation: bounceInRight 2s;
+        }
+        .p1{
+            animation: bounceOutRight 1s;
+        }
+        .active .bg2{
+            animation:bounceInUp 2s;
+        }
+        .bg2{
+            animation:bounceOutUp 1s;
+        }
+        .active .bg1{
+            animation:bounceInUp 2s;
+        }
+        .bg1{
+            animation:bounceOutUp 1s;
+
+        }
+        .active  .ha{
+            animation:flipInX 2s;
+        }
+        .ha{
+            color: #dd2727;
+            animation:flipOutX 1s;
+        }
+        .active .p1a{
+            animation: lightSpeedIn 2s;
+        }
+        .p1a{
+            color: #1a3167;
+            animation: lightSpeedOut 3s;
+        }
+        .active .bg2a{
+            animation:bounceInDown 2s;
+        }
+        .bg2a{
+            animation:bounceOutDown 1s;
+            background: url(img/pic1.png) 50% 0 no-repeat;
+
+        }
+        .active .bg1a{
+            animation:rotateIn 2s;
+        }
+        .bg1a{
+            animation:rotateOut 1s;
+            position: absolute;
+            top:180px;
+            width: 100%;
+            height: 900px;
+            background: url("img/") 10% 0 no-repeat;
+        }
+        .active  .hs{
+            animation:zoomIn 2s;
+        }
+        .hs{
+            color: #f56a00;
+            animation:zoomOut 1s;
+        }
+        .active .p1s{
+            animation: bounceInRight 2s;
+            background:rgba(0,0,0,0.3)
+        }
+        .p1s{
+            animation: bounceOutRight 1s;
+            background:rgba(0,0,0,0.3)
+        }
+        .active .bg2s{
+            animation:rollIn 2s;
+        }
+        .bg2s{
+            animation:rollOut 1s;
+            position: absolute;
+            width: 100%;
+            height: 377px;
+            /*background: url(img/bg13.png) 50% 0 no-repeat;*/
+        }
+        .active .bg1s{
+            position: absolute;
+            top:300px;
+            z-index: 150;
+            background: url("img/pic2.png") 50% 0 no-repeat;
+            animation:slideInLeft 2s;
+        }
+        .bg1s{
+            position: absolute;
+            top:300px;
+            z-index: 150;
+            background: url("img/pic2.png") 50% 0 no-repeat;
+            animation:slideOutLeft 1s;
+        }
+        .active  .hd{
+            animation:zoomInDown 2s;
+        }
+        .hd{
+            font-size: 30px;
+            color: chartreuse;
+            animation:zoomOutDown 1s;
+        }
+        .active .p1d{
+
+            animation: bounceInRight 2s;
+        }
+        .p1d{
+            animation: bounceOutRight 1s;
+            background: rgba(255,50,57,0.2);
+        }
+        .active .bg2d{
+            animation:zoomInDown 2s;
+        }
+        .bg2d{
+            animation:zoomOutDown 1s;
+            position: absolute;
+            width: 100%;
+            height: 377px;
+            background: url(img/) 50% 0 no-repeat;
+        }
+        .active .bg1d{
+            display: block;
+            position: absolute;
+            top:500px;
+            z-index: 150;
+            background: url("img/pic1 (1).png") 50% 0 no-repeat;
+            animation:slideInUp 2s;
+
+        }
+        .bg1d{
+            display: block;
+            position: absolute;
+            top:500px;
+            z-index: 150;
+            background: url("img/pic1 (1).png") 50% 0 no-repeat;
+            animation:slideOutDown 1s;
+        }
+        h2{
+            font-size:50px;
+            text-align: center;
+            font-weight: normal;
+            margin: 0;
+            font-family:"宋体"
+        }
+      .p1{
+            width: 510px;
+            position: absolute;
+            /*top:380px;*/
+            left: 0;
+            bottom: 200px;
+            right: 0;
+            margin:0px auto;
+            z-index: 100;
+
+        }
+        p{
+            font-size:20px;
+            text-align: center;
+            font-weight: normal;
+            margin: 0;
+            font-family:"宋体";
+
+
+        }
+
+
+        .section:nth-child(2){
+            background: url("img/bg.jpg");
+            background-size: cover;
+        }
+        .section:nth-child(3){
+            background: url("img/031f3d45a265758a80120ba38a8fa4c.jpg@260w_195h_1c_1e_1o_100sh.jpg");
+            background-size: cover;
+        }
+        .section:nth-child(4){
+            background: url("img/bg (1).jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li data-menuanchor="page1" class="active"><a href="#page1">第一屏</a></li>
+    <li data-menuanchor="page2"><a href="#page2">第二屏</a></li>
+    <li data-menuanchor="page3"><a href="#page3">第三屏</a></li>
+    <li data-menuanchor="page4"><a href="#page4">第四屏</a></li>
+</ul>
+<div id="dowebok">
+    <div class="section">
+        <div class="h">
+        <h1>龙腾集团</h1>
+        <h2>为集团的发展贡献力量</h2>
+           </div>
+        <div class="p1">
+      <p>轻，是一种坚守</p>
+            <p>在喧嚣的世界里是随波逐流？还是坚持初心</p>
+            <p>我们选择重新思考，回归轻盈的邮箱体验。</p>
+            <p>网易邮箱简约版始终专注于邮箱的核心体验，我们一直小心翼翼，只为你留下清爽、体贴、</p>
+            <p>安静的邮箱生活。</p>
+    </div>
+        <div class="bg">
+            <div class="bg1"></div>
+        <div class="bg2"></div>
+    </div>
+    </div>
+    <div class="section">
+        <div class="h ha">
+            <h1>发展历程</h1>
+            <h2>从2007年成立到如今</h2>
+        </div>
+        <div class="p1 p1a">
+            <p>龙腾集团秉承“以德为本、共创未来”的企业文化，“建立公平、传递信任”的价值观与客户同成长、共发展。</p>
+        </div>
+        <div class="bg">
+            <div class="bg1 bg1a">
+            </div>
+            <div class="bg2 bg2a"></div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="h hs">
+            <h1>智慧工厂</h1>
+            <h2>为未来的变化而努力</h2>
+        </div>
+        <div class="p1 p1s">
+            <p pp>人工成本的不断上涨，中国开始从一个制造业大国向工业强国转变，工业机器人集成替代人工将是大势所趋, 始终坚持以环保先进企业的姿态开发,制造值得信赖的产品和系统机电一体化业务还包括放电加工机及激光加工机整机设备提供,助您生产率胜人一筹!</p>
+        </div>
+        <div class="bg">
+            <div class="bg1 bg1s"></div>
+            <div class="bg2s"></div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="h hd">
+            <h1>集团变化与发展</h1>
+            <h2>欢迎进入龙腾集团一起努力</h2>
+        </div>
+        <div class="p1 p1d">
+            <p>[ 视觉·简 ]华丽蜕变，尽享愉悦之美秉承网易邮箱经典的清新简洁的设计风格，邮箱 6.0 版带来全新一代的设计理念，更追求极致唯美的视觉设计、传承更多人文和艺术底蕴，华丽蜕变，带来更舒服更爽心悦目的视觉享受。</p>
+        </div>
+        <div class="bg">
+            <a href="../企业站/index.html" class="bg1 bg1d"></a>
+            <div class="bg2 bg2d"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    $(function(){
+        $('#dowebok').fullpage({
+            sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#f90'],
+            anchors: ['page1', 'page2', 'page3', 'page4'],
+            menu: '#menu',
+            'navigation': true
+        });
+    });
+</script>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>金色推荐老年旅客将</title>
+    <script src="jquery-3.2.1.js"></script>
+</head>
+<body>
+<form action="" method="post">
+    账号：<input type="text" name="user">
+    密码：<input type="text" name="pass">
+    <input type="submit">
+</form>
+</body>
+</html>
+<script>
+    $(":submit").click(function (e) {
+        e.preventDefault()
+        console.log($("form").serialize())
+    })
+//    let sub=document.querySelector("input[type=submit]");   ////////获取提交
+//    sub.onclick=function (e) {
+//     e.preventDefault() ;
+//        var ajax=window.XMLHttpRequest? new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");
+//        let str="";
+//        let input=document.querySelectorAll("input[type=text]"); //////////获取输入值
+//        input.forEach(val=>{
+//            str+=val.name+"="+val.value+"&"
+//        });
+//        str=str.slice(0,-1);  //////////删除最后一个
+//        ajax.open("post","index.php",true) ; /////////打开请求
+//        ajax.setRequestHeader("content-type","application/x-www-form-urlencoded")
+//        ajax.send(str);/////送走
+//        ///////监控事件
+//        ajax.onreadystatechange=function () {
+//            if(ajax.readyState==4){
+//                if(ajax.status==200){
+//            console.log(ajax.responseText)
+//                }
+//            }
+//        }
+//    }
+//$(":submit").click(function (e) {
+//    e.preventDefault()
+//    $.ajax({
+//        url:"index.php",
+//        type:"post",
+//        data:$("form").serialize(),
+//        asynch:true,
+//        dataType:"text",
+//        success:function (mes) {
+//            console.log(mes)
+//        }
+//    })
+//})
+//function ajax(obj) {
+//
+//}
+
+function ajax(obj) {
+    var type = obj.type || "post";
+    var url = obj.url ||"";
+    var asynch = obj.async===false?false: true;
+    var dataType = obj.dataType || "text";
+    var data=obj.data||"";
+    var success = obj.success || function () {
+    var ajax = window.XMLHttpRequest? new XMLHttpRequest(): new ActiveXObject("Microsoft.XMLHTTP");
+    if(type=="get"){
+        ajax.open("get",url+"?"+data,asynch);
+        ajax.send(null)
+    }
+    else if(type=="post"){
+        ajax.open("post",url,asynch);
+        ajax.setRequestHeader("content-type","application/x-www-form-urlencoded");
+        ajax.send(data)
+    }
+        };
+    ajax.onreadystatechange=function () {
+        if(ajax.readyState===4){
+            if(ajax.status===200){
+                if(dataType==="text"){
+                    success(ajax.responseText);
+                }else if(dataType==="xml"){
+                    success(ajax.responseXML)
+                }else if(dataType==="json"){
+                    success(JSON.parse(ajax.response))
+                }
+            }
+        }else if(ajax.status===404){
+            alert("hgsuitrn")
+        }else{
+                alert("dlitjhmgerl;")
+        }
+    };
+
+};
+//    var params = [];
+//    for (var key in obj.data){
+//        params.push(key + '=' + opt.data[key]);
+//    }
+//    var postData = params.join('&');
+//    if (obj.type.toUpperCase() === 'POST') {
+//        xmlHttp.open(obj.type, obj.url, obj.async);
+//        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+//        xmlHttp.send(postData);
+//    }
+//    else if (opt.type.toUpperCase() === 'GET') {
+//        xmlHttp.open(obj.type, obj.url + '?' + postData, obj.async);
+//        xmlHttp.send(null);
+//    }
+
+    ajax({
+        url:"index.php",
+//        type:"post",
+//        data:$("form").serialize(),
+//        asynch:true,
+        dataType:"json",
+        success:function (text) {
+            console.log(text)
+        }
+    })
+
+</script>
+<!--let sub=document.querySelector("input[type=submit]");   ////////获取提交-->
+<!--sub.onclick=function (e) {-->
+<!--e.preventDefault() ;-->
+<!--var ajax=new XMLHttpRequest();-->
+<!--let str="";-->
+<!--let input=document.querySelectorAll("input[type=text]"); //////////获取输入值-->
+<!--input.forEach(val=>{-->
+<!--str+=val.name+"="+val.value+"&"-->
+<!--});-->
+<!--str=str.slice(0,-1);  //////////删除最后一个-->
+<!--ajax.open("get","index.php?"+str,true) ; /////////打开请求-->
+<!--ajax.send();/////送走-->
+<!--///////监控事件-->
+<!--ajax.onreadystatechange=function () {-->
+<!--if(ajax.readyState==4){-->
+<!--if(ajax.status==200){-->
+<!--console.log(ajax.responseText)-->
+<!--}-->
+<!--}-->
+<!--}-->
+<!--}-->

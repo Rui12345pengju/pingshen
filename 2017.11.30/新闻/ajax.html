@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width">
+    <title>图片</title>
+    <script src="jquery-3.2.1.js"></script>
+    <!--<style>-->
+        <!--img{-->
+            <!--display: none;-->
+        <!--}-->
+    <!--</style>-->
+</head>
+<body>
+<!--<img src="1.jpg" alt="">-->
+
+
+<select name="" id="province">
+    <option value="">请选择省份</option>
+</select>
+<select name="" id="city">
+    <option value="">请选择市</option>
+</select>
+<select name="" id="town">
+    <option value="">请选择县</option>
+</select>
+
+
+
+
+
+</body>
+</html>
+<script>
+//    $(document).ajaxSend(function () {
+//        $("img").show();
+//    });
+//    $(document).ajaxComplete(function () {
+//        $("img").hide();
+//    });
+//    $.ajax({
+//        type:"post",
+//        url:"index.php",
+//        dataType:"text"
+//    })
+//$.ajax({
+//
+//})
+//
+
+
+    $.ajax({
+    url:"http://api.jisuapi.com/area/province?appkey=b737724df1b00c4d",
+    dataType:"jsonp",
+    success:function (obj) {
+        console.log(obj)
+        var arr=obj.result;
+        var str="";
+
+        arr.forEach(val=>{
+            str+=`<option value="${val.id}">${val.name}</option>`;
+        })
+        $("#province").html(function (index,html) {
+            return html+str
+        })
+    }
+});
+    $("#province").change(function () {
+        $("#city").html(`<option value="">请选择市</option>`);
+        let province=$(this).val();
+        if(!province){
+            return
+        }
+        $.ajax({
+            url:"http://api.jisuapi.com/area/city?parentid="+province+"&appkey=b737724df1b00c4d",
+            dataType:"jsonp",
+            success:function (obj) {
+                var arr=obj.result;
+                var str="";
+                arr.forEach(val=>{
+                    str+=`<option value="${val.id}">${val.name}</option>`;
+            })
+                $("#city").html(function (index,html) {
+                    return html+str
+                })
+            }
+        })
+    });
+    $("#city").change(function () {
+        $("city").html(`<option value="">请选择市</option>`);
+        $("town").html(`<option value="">请选择县</option>`);
+        let city=$(this).val();
+        if(!province){
+            return
+        }
+
+        $.ajax({
+            url:"http://api.jisuapi.com/area/town?parentid="+city+"&&appkey=b737724df1b00c4d",
+            dataType:"jsonp",
+            success:function (obj) {
+                var arr=obj.result;
+                if(arr==""){
+                    return
+                }
+                var str="";
+                arr.forEach(val=>{
+                    str+=`<option value="${val.id}">${val.name}</option>`;
+            })
+                $("#town").html(function (index,html) {
+                    return html+str
+                })
+            }
+        })
+    })
+
+
+
+
+
+</script>
